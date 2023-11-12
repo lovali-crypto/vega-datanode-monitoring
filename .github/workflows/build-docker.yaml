@@ -23,4 +23,4 @@ jobs:
       - name: 'Build Inventory Image'
         run: |
           docker build . --tag ghcr.io/lovali-crypto/vega-datanode-monitoring:latest
-          docker push ghcr.io/lovali-crypto/svega-datanode-monitoring:latest
+          docker push ghcr.io/lovali-crypto/vega-datanode-monitoring:latest
