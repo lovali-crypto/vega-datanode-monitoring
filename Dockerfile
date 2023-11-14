@@ -1,5 +1,5 @@
 # Use the official Alpine Linux image
-FROM alpine:latest
+FROM node:latest
 
 # Install necessary packages
 RUN apk --no-cache add \
@@ -9,7 +9,10 @@ RUN apk --no-cache add \
 # Set environment variables
 ENV TELEGRAM_BOT_TOKEN="your_bot_token" \
     TELEGRAM_CHAT_ID="your_chat_id" \
-    HEALTHCHECK_IO_URL="https://hc-ping.com/your_healthcheck_io_uuid"
+    HEALTHCHECK_IO_URL="https://hc-ping.com/your_healthcheck_io_uuid" \
+    VEGA_NETWORK="testnet1" \
+    VEGA_VALIDATOR="validator" 
+    
 
 # Set the working directory
 WORKDIR /app
