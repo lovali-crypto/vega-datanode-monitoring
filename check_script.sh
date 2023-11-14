@@ -42,7 +42,7 @@ if [ -e "$PREVIOUS_OUTPUT_FILE" ]; then
     else
         STATUS="nok"
     fi
-    echo "$STATUS" > "$PREVIOUS_STATUS_FILE"
+    echo "$STATUS" > "$PREVIOUS_OUTPUT_FILE"
 else
     # File doesn't exist, create it with the current output
     CURRENT_OUTPUT=$(eval "$COMMAND")
@@ -52,7 +52,7 @@ else
     else
         STATUS="nok"
     fi
-    echo "$STATUS" > "$PREVIOUS_STATUS_FILE"
+    echo "$STATUS" > "$PREVIOUS_OUTPUT_FILE"
 fi
 
 if [ -n "$HEALTHCHECK_IO_URL" ]; then
