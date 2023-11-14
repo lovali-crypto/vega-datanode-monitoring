@@ -3,6 +3,7 @@ FROM node:alpine
 
 # Install necessary packages
 RUN apk --no-cache add \
+    bash \
     curl
 
 # Set environment variables
