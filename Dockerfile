@@ -1,5 +1,5 @@
 # Use the official Alpine Linux image
-FROM node:latest
+FROM node:alpine
 
 # Install necessary packages
 RUN apk --no-cache add \
