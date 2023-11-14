@@ -3,7 +3,6 @@ FROM node:latest
 
 # Install necessary packages
 RUN apk --no-cache add \
-    bash \
     curl
 
 # Set environment variables
