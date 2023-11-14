@@ -23,24 +23,30 @@ if [ -e "$PREVIOUS_OUTPUT_FILE" ]; then
     CURRENT_OUTPUT=$(eval "$COMMAND")
     PREVIOUS_OUTPUT=$(cat "$PREVIOUS_OUTPUT_FILE")
 
-    if [ "$CURRENT_OUTPUT" != "$PREVIOUS_OUTPUT" ] && [ -n "$CURRENT_OUTPUT" ]; then
+    if { [ "$PREVIOUS_STATUS" = "ok" ] && [ -n "$CURRENT_OUTPUT" ]; } || { [ "$PREVIOUS_STATUS" = "nok" ] && [ -z "$CURRENT_OUTPUT" ]; }; then
         # Output has changed, send a Telegram message
-
         # If $CURRENT_OUTPUT is empty raise an error
         if [ -z "$CURRENT_OUTPUT" ]; then
             MESSAGE="[Vega Datanode - $VEGA_NETWORK] [🔴 Down] $VEGA_VALIDATOR is offline! Vaguer monitoring"
+            echo "nok" > "$PREVIOUS_STATUS_FILE"
         else
             MESSAGE="[Vega Datanode - $VEGA_NETWORK] [✅ Up] $VEGA_VALIDATOR is online! Vaguer monitoring"
+            echo "ok" > "$PREVIOUS_STATUS_FILE"
         fi
         URL="https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage"
         DATA="chat_id=$TELEGRAM_CHAT_ID&text=$MESSAGE"
         curl -s -X POST $URL -d "$DATA"
     fi
-    echo "$CURRENT_OUTPUT" > "$PREVIOUS_OUTPUT_FILE"
 else
     # File doesn't exist, create it with the current output
     CURRENT_OUTPUT=$(eval "$COMMAND")
-    echo "$CURRENT_OUTPUT" > "$PREVIOUS_OUTPUT_FILE"
+    STATUS=""
+    if [ -n "$CURRENT_OUTPUT" ]; then
+        STATUS="ok"
+    else
+        STATUS="nok"
+    fi
+    echo "$STATUS" > "$PREVIOUS_STATUS_FILE"
 fi
 
 if [ -n "$HEALTHCHECK_IO_URL" ]; then
