@@ -23,7 +23,7 @@ if [ -e "$PREVIOUS_OUTPUT_FILE" ]; then
     CURRENT_OUTPUT=$(eval "$COMMAND")
     PREVIOUS_OUTPUT=$(cat "$PREVIOUS_OUTPUT_FILE")
 
-    if { [ "$PREVIOUS_STATUS" = "ok" ] && [ -z "$CURRENT_OUTPUT" ]; } || { [ "$PREVIOUS_STATUS" = "nok" ] && [ -n "$CURRENT_OUTPUT" ]; }; then
+    if { [ "$PREVIOUS_OUTPUT" = "ok" ] && [ -z "$CURRENT_OUTPUT" ]; } || { [ "$PREVIOUS_OUTPUT" = "nok" ] && [ -n "$CURRENT_OUTPUT" ]; }; then
         # Output has changed, send a Telegram message
         # If $CURRENT_OUTPUT is empty raise an error
         if [ -z "$CURRENT_OUTPUT" ]; then
