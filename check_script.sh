@@ -36,6 +36,7 @@ if [ -e "$PREVIOUS_OUTPUT_FILE" ]; then
         DATA="chat_id=$TELEGRAM_CHAT_ID&text=$MESSAGE"
         curl -s -X POST $URL -d "$DATA"
     fi
+    echo "$CURRENT_OUTPUT" > "$PREVIOUS_OUTPUT_FILE"
 else
     # File doesn't exist, create it with the current output
     CURRENT_OUTPUT=$(eval "$COMMAND")
